@@ -26,9 +26,14 @@ export async function signInWithGithub(formData: FormData) {
 }
 
 export async function getServerSession() {
-  return auth.api.getSession({
-    headers: await headers(),
-  });
+  try {
+    return await auth.api.getSession({
+      headers: await headers(),
+    });
+  } catch (error) {
+    console.error("Failed to get auth session", error);
+    return null;
+  }
 }
 
 export async function requireAuth(redirectTo = SIGN_IN_PATH) {

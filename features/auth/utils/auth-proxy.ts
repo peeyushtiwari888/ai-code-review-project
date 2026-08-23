@@ -26,9 +26,15 @@ export async function handleAuthProxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const session = await auth.api.getSession({
-    headers: request.headers,
-  });
+  let session = null;
+
+  try {
+    session = await auth.api.getSession({
+      headers: request.headers,
+    });
+  } catch (error) {
+    console.error("Failed to get auth session in proxy", error);
+  }
 
   if (pathname === SIGN_IN_PATH) {
     if (session) {
