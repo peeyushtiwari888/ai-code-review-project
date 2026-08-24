@@ -134,29 +134,30 @@ export function RepoList() {
       }
 
       return (
-        <div className="flex flex-1 flex-col gap-4 p-6">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <Tabs
-              value={filter}
-              onValueChange={(value) => setFilter(value as Filter)}
-            >
-              <TabsList>
-                <TabsTrigger value="all">All ({counts.all})</TabsTrigger>
-                <TabsTrigger value="public">Public ({counts.public})</TabsTrigger>
-                <TabsTrigger value="private">Private ({counts.private})</TabsTrigger>
-              </TabsList>
-            </Tabs>
-            <Input
-              placeholder="Search repositories…"
-              className="max-w-xs"
-              value={search}
-              onChange={(event) => setSearch(event.target.value)}
-            />
-          </div>
-    
-          <div className="rounded-none border border-border">
-            <Table>
-              <TableHeader>
+      <div className="flex flex-1 flex-col gap-4 p-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <Tabs
+            value={filter}
+            onValueChange={(value) => setFilter(value as Filter)}
+            className="w-full sm:w-auto"
+          >
+            <TabsList className="bg-muted/50 p-1 border border-border/50">
+              <TabsTrigger value="all" className="data-[state=active]:bg-ai-cyan/10 data-[state=active]:text-ai-cyan data-[state=active]:shadow-none transition-all rounded-md">All ({counts.all})</TabsTrigger>
+              <TabsTrigger value="public" className="data-[state=active]:bg-ai-cyan/10 data-[state=active]:text-ai-cyan data-[state=active]:shadow-none transition-all rounded-md">Public ({counts.public})</TabsTrigger>
+              <TabsTrigger value="private" className="data-[state=active]:bg-ai-cyan/10 data-[state=active]:text-ai-cyan data-[state=active]:shadow-none transition-all rounded-md">Private ({counts.private})</TabsTrigger>
+            </TabsList>
+          </Tabs>
+          <Input
+            placeholder="Search repositories…"
+            className="max-w-xs bg-muted/30 border-border/50 focus-visible:ring-ai-cyan/50 focus-visible:border-ai-cyan transition-all"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+          />
+        </div>
+  
+        <div className="rounded-xl border border-border/50 overflow-hidden bg-card/50 backdrop-blur-sm shadow-sm transition-all hover:shadow-[0_0_30px_-10px_rgba(var(--color-ai-cyan),0.2)] hover:border-border/80">
+          <Table>
+            <TableHeader className="bg-muted/30">
                 <TableRow>
                   <TableHead>Repository</TableHead>
                   <TableHead>Visibility</TableHead>
@@ -184,32 +185,41 @@ function RepoRow({ repo }: { repo: DashboardRepo }) {
     const tone = repo.visibility === "public" ? "info" : "warning";
   
     return (
-      <TableRow>
+      <TableRow className="group hover:bg-ai-cyan/5 border-border/50 transition-all duration-300 hover:shadow-[inset_2px_0_0_0_rgba(var(--color-ai-cyan),1)]">
         <TableCell>
-          <div className="flex flex-col">
-            <span className="font-medium">{repo.name}</span>
-            <span className="text-xs text-muted-foreground">{repo.fullName}</span>
+          <div className="flex flex-col gap-0.5">
+            <span className="font-semibold text-foreground group-hover:text-ai-cyan transition-colors">{repo.name}</span>
+            <span className="text-xs text-muted-foreground font-mono">{repo.fullName}</span>
           </div>
         </TableCell>
         <TableCell>
-          <span className={statusBadge(tone, "gap-1")}>
+          <span className={statusBadge(tone, `gap-1.5 px-2 py-0.5 shadow-none rounded-md border transition-colors ${repo.visibility === 'private' ? 'bg-amber-500/10 text-amber-500 border-amber-500/20' : 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'}`)}>
             {repo.visibility === "private" ? (
-              <LockIcon className="size-3" />
+              <LockIcon className="size-3 text-amber-500/80" />
             ) : (
-              <LockKeyOpenIcon  className="size-3" />
+              <LockKeyOpenIcon  className="size-3 text-emerald-500/80" />
             )}
-            {repo.visibility}
+            <span className="font-medium">{repo.visibility}</span>
           </span>
         </TableCell>
-        <TableCell className="text-muted-foreground">{repo.defaultBranch}</TableCell>
-        <TableCell>{repo.language ?? "—"}</TableCell>
+        <TableCell>
+          <code className="px-1.5 py-0.5 rounded-md bg-indigo-500/10 text-xs font-mono text-indigo-400 border border-indigo-500/20 transition-colors group-hover:bg-indigo-500/20">{repo.defaultBranch}</code>
+        </TableCell>
+        <TableCell>
+           <span className="flex items-center gap-2 text-zinc-300 text-sm transition-colors group-hover:text-white">
+              {repo.language && (
+                 <span className="w-1.5 h-1.5 rounded-full bg-ai-cyan shadow-[0_0_8px_rgba(var(--color-ai-cyan),0.6)]" />
+              )}
+              {repo.language ?? "—"}
+           </span>
+        </TableCell>
         <TableCell className="text-right">
-          <span className="inline-flex items-center justify-end gap-1 text-muted-foreground">
-            <StarIcon className="size-3 text-amber-500" />
+          <span className="inline-flex items-center justify-end gap-1.5 text-zinc-300 font-medium text-sm transition-colors group-hover:text-white">
+            <StarIcon className="size-3.5 text-yellow-500 fill-yellow-500/20" />
             {repo.stars}
           </span>
         </TableCell>
-        <TableCell className="text-right text-muted-foreground">
+        <TableCell className="text-right text-xs text-muted-foreground group-hover:text-zinc-400 transition-colors">
           {formatDistanceToNow(new Date(repo.updatedAt), { addSuffix: true })}
         </TableCell>
         <TableCell className="text-right">

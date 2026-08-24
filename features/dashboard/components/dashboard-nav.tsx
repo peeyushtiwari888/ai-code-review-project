@@ -54,11 +54,13 @@ export function DashboardNav() {
                 <Link
                   href={item.href}
                   className={cn(
-                    "flex w-full items-center gap-2 rounded-xl px-3 py-2 text-sm text-sidebar-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
-                    active && "bg-sidebar-accent font-medium text-sidebar-accent-foreground"
+                    "flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                    active 
+                      ? "bg-ai-cyan/10 text-ai-cyan" 
+                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
                   )}
                 >
-                  <Icon className="size-4 shrink-0" />
+                  <Icon className={cn("size-4 shrink-0", active && "text-ai-cyan")} />
                   <span className="truncate">{item.title}</span>
                 </Link>
               </SidebarMenuItem>

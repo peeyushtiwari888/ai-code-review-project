@@ -1,14 +1,14 @@
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion"
 
 import { cn } from "@/lib/utils"
-import { ChevronDownIcon, ChevronUpIcon } from "lucide-react"
+import { PlusIcon, MinusIcon } from "lucide-react"
 
 function Accordion({ className, ...props }: AccordionPrimitive.Root.Props) {
   return (
     <AccordionPrimitive.Root
       data-slot="accordion"
       className={cn(
-        "flex w-full flex-col overflow-hidden rounded-2xl border",
+        "flex w-full flex-col",
         className
       )}
       {...props}
@@ -20,7 +20,7 @@ function AccordionItem({ className, ...props }: AccordionPrimitive.Item.Props) {
   return (
     <AccordionPrimitive.Item
       data-slot="accordion-item"
-      className={cn("not-last:border-b data-open:bg-muted/50", className)}
+      className={cn("border-b border-border/40 last:border-0", className)}
       {...props}
     />
   )
@@ -42,8 +42,8 @@ function AccordionTrigger({
         {...props}
       >
         {children}
-        <ChevronDownIcon data-slot="accordion-trigger-icon" className="pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden" />
-        <ChevronUpIcon data-slot="accordion-trigger-icon" className="pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline" />
+        <PlusIcon data-slot="accordion-trigger-icon" className="pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden transition-transform duration-300" />
+        <MinusIcon data-slot="accordion-trigger-icon" className="pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline transition-transform duration-300 text-ai-cyan" />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   )

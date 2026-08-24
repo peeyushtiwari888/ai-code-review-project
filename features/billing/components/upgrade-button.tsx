@@ -21,20 +21,21 @@ declare global {
 
 const RAZORPAY_SCRIPT_URL = "https://checkout.razorpay.com/v1/checkout.js";
 
-export function UpgradeButton() {
+export function UpgradeButton({ className, children }: { className?: string, children?: React.ReactNode }) {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
   const [scriptLoaded, setScriptLoaded] = useState(false);
 
 
     async function handleUpgrade() {
-        const key = process.env.NEXT_PUBLIC_RAZORPAY_API_KEY;
+        const key = process.env.NEXT_PUBLIC_RAZORPAY_API_KEY?.trim();
         if (!key) {
           toast.error("Razorpay is not configured yet.");
           return;
         }
     
-        if (!scriptLoaded || !window.Razorpay) {
+        const isLoaded = typeof window !== "undefined" && !!window.Razorpay;
+        if (!isLoaded && !scriptLoaded) {
           toast.error("Checkout is still loading, please try again in a moment.");
           return;
         }
@@ -47,8 +48,8 @@ export function UpgradeButton() {
           const checkout = new window.Razorpay({
             key,
             subscription_id: subscriptionId,
-            name: "Chai Code Reviewer",
-            description: "Pro plan — unlimited AI reviews",
+            name: "RepoReview",
+            description: "Pro Plan Subscription",
             handler: () => {
               toast.success("Payment successful! Your Pro plan will activate shortly.");
               router.refresh();
@@ -74,9 +75,9 @@ export function UpgradeButton() {
             <Button
                 onClick={handleUpgrade}
                 disabled={loading}
-                className={cn(statusButtonClass.success)}
+                className={cn(className || statusButtonClass.success)}
             >
-                {loading ? "Opening checkout…" : "Upgrade to Pro"}
+                {loading ? "Opening checkout…" : children || "Upgrade to Pro"}
             </Button>
         </>
     )

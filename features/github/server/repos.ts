@@ -41,7 +41,7 @@ export type InstallationReposPage = {
 
 /** Normalizes a raw GitHub API repo object into our app's `GithubRepo` shape. */
 function mapRepo(repo: {
-    id: number;
+    id: number | bigint;
     name: string;
     full_name: string;
     private?: boolean;

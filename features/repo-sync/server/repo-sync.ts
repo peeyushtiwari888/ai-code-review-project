@@ -99,14 +99,21 @@ export function buildRepoNamespace(repoFullName: string) {
     const entries = tree.tree.filter(isIndexableFile).slice(0, MAX_FILES);
     const files: RepoFile[] = [];
   
-    for (const entry of entries) {
-      const { data: blob } = await octokit.request(
-        "GET /repos/{owner}/{repo}/git/blobs/{file_sha}",
-        { owner, repo, file_sha: entry.sha! }
-      );
-  
-      const content = Buffer.from(blob.content, "base64").toString("utf-8");
-      files.push({ filePath: entry.path!, content });
+    const BATCH_SIZE = 15;
+    for (let i = 0; i < entries.length; i += BATCH_SIZE) {
+      const batch = entries.slice(i, i + BATCH_SIZE);
+      
+      const batchPromises = batch.map(async (entry) => {
+        const { data: blob } = await octokit.request(
+          "GET /repos/{owner}/{repo}/git/blobs/{file_sha}",
+          { owner, repo, file_sha: entry.sha! }
+        );
+        const content = Buffer.from(blob.content, "base64").toString("utf-8");
+        return { filePath: entry.path!, content };
+      });
+
+      const batchResults = await Promise.all(batchPromises);
+      files.push(...batchResults);
     }
   
     return files;
