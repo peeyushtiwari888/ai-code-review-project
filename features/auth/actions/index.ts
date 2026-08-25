@@ -30,8 +30,10 @@ export async function getServerSession() {
     return await auth.api.getSession({
       headers: await headers(),
     });
-  } catch (error) {
-    console.error("Failed to get auth session", error);
+  } catch (error: any) {
+    if (error?.digest !== "DYNAMIC_SERVER_USAGE") {
+      console.error("Failed to get auth session", error);
+    }
     return null;
   }
 }
