@@ -84,13 +84,13 @@ export function ArchitectureDiagram() {
       <div className="hidden md:flex w-full h-full relative items-center justify-between z-10 max-w-4xl">
         
         {/* Animated Connection Lines (SVG) */}
-        <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: -1 }}>
-          <path d="M 10% 50% L 30% 50%" stroke="currentColor" strokeOpacity="0.2" strokeWidth="2" strokeDasharray="4 4" className="animate-[dash_20s_linear_infinite]" />
-          <path d="M 30% 50% C 40% 50%, 40% 20%, 50% 20%" stroke="currentColor" strokeOpacity="0.2" strokeWidth="2" strokeDasharray="4 4" className="animate-[dash_20s_linear_infinite]" />
-          <path d="M 30% 50% C 40% 50%, 40% 80%, 50% 80%" stroke="currentColor" strokeOpacity="0.2" strokeWidth="2" strokeDasharray="4 4" className="animate-[dash_20s_linear_infinite]" />
-          <path d="M 50% 20% C 60% 20%, 60% 50%, 70% 50%" stroke="currentColor" strokeOpacity="0.2" strokeWidth="2" strokeDasharray="4 4" className="animate-[dash_20s_linear_infinite]" />
-          <path d="M 50% 80% C 60% 80%, 60% 50%, 70% 50%" stroke="currentColor" strokeOpacity="0.2" strokeWidth="2" strokeDasharray="4 4" className="animate-[dash_20s_linear_infinite]" />
-          <path d="M 70% 50% L 90% 50%" stroke="currentColor" strokeOpacity="0.2" strokeWidth="2" strokeDasharray="4 4" className="animate-[dash_20s_linear_infinite]" />
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none" style={{ zIndex: -1 }}>
+          <path d="M 10 50 L 30 50" stroke="currentColor" strokeOpacity="0.2" strokeWidth="2" strokeDasharray="4 4" vectorEffect="non-scaling-stroke" className="animate-[dash_20s_linear_infinite]" />
+          <path d="M 30 50 C 40 50, 40 20, 50 20" stroke="currentColor" strokeOpacity="0.2" strokeWidth="2" strokeDasharray="4 4" vectorEffect="non-scaling-stroke" className="animate-[dash_20s_linear_infinite]" />
+          <path d="M 30 50 C 40 50, 40 80, 50 80" stroke="currentColor" strokeOpacity="0.2" strokeWidth="2" strokeDasharray="4 4" vectorEffect="non-scaling-stroke" className="animate-[dash_20s_linear_infinite]" />
+          <path d="M 50 20 C 60 20, 60 50, 70 50" stroke="currentColor" strokeOpacity="0.2" strokeWidth="2" strokeDasharray="4 4" vectorEffect="non-scaling-stroke" className="animate-[dash_20s_linear_infinite]" />
+          <path d="M 50 80 C 60 80, 60 50, 70 50" stroke="currentColor" strokeOpacity="0.2" strokeWidth="2" strokeDasharray="4 4" vectorEffect="non-scaling-stroke" className="animate-[dash_20s_linear_infinite]" />
+          <path d="M 70 50 L 90 50" stroke="currentColor" strokeOpacity="0.2" strokeWidth="2" strokeDasharray="4 4" vectorEffect="non-scaling-stroke" className="animate-[dash_20s_linear_infinite]" />
         </svg>
 
         {nodes.map((node) => (
