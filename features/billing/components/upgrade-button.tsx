@@ -45,6 +45,9 @@ export function UpgradeButton({ className, children }: { className?: string, chi
         try {
           const { subscriptionId } = await startProSubscription();
     
+          if (!window.Razorpay) {
+              throw new Error("Razorpay failed to load.");
+          }
           const checkout = new window.Razorpay({
             key,
             subscription_id: subscriptionId,
