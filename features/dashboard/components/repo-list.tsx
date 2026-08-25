@@ -225,7 +225,7 @@ function RepoRow({ repo }: { repo: DashboardRepo }) {
         <TableCell className="text-right">
           <SyncRepoButton
             repoFullName={repo.fullName}
-            branch={repo.defaultBranch}
+            branch={repo.defaultBranch || "main"}
             syncStatus={repo.syncStatus ?? null}
           />
         </TableCell>
