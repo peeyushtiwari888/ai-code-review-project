@@ -109,12 +109,12 @@ const SignInPage = async (props: SignInPageProps) => {
       {/* RIGHT SIDE - Sign In Form */}
       <div className="flex w-full lg:w-1/2 flex-col items-center justify-center p-6 sm:p-12 relative overflow-hidden">
         
-        {/* Subtle Background Watermark */}
-        <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none select-none opacity-[0.15] dark:opacity-20 overflow-hidden">
+        {/* Subtle Coding Background Watermark */}
+        <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
           <img 
-            src="/branding/reporeview-logo.png.jpeg" 
+            src="/branding/coding_background.png" 
             alt="" 
-            className="w-full h-full object-cover scale-[1.5] blur-[3px] grayscale invert mix-blend-multiply dark:invert-0 dark:mix-blend-screen" 
+            className="w-full h-full object-cover opacity-20 dark:opacity-30 mix-blend-overlay dark:mix-blend-screen grayscale" 
           />
         </div>
 

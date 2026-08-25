@@ -85,7 +85,7 @@ export function UserMenu({
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
-          router.push(SIGN_IN_PATH);
+          window.location.href = SIGN_IN_PATH;
         },
       },
     });

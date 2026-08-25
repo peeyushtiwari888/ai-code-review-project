@@ -73,3 +73,28 @@ export const syncRepoCodebaseFunction = inngest.createFunction({
         }
     }
 )
+
+export const unsyncRepoCodebaseFunction = inngest.createFunction({
+    id: "unsync-repo-codebase",
+    triggers: { event: "repo/unsync.requested" },
+},
+    async ({ event, step }) => {
+        const repoFullName = event.data.repoFullName;
+        const namespace = buildRepoNamespace(repoFullName);
+
+        await step.run("delete-pinecone-namespace", async () => {
+            await deleteRepoNamespace(namespace);
+        });
+
+        await step.run("delete-db-record", async () => {
+            await prisma.repoSync.deleteMany({
+                where: { repoFullName },
+            });
+        });
+
+        return {
+            repoFullName,
+            status: "unsynced",
+        }
+    }
+)

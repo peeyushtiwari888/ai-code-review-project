@@ -173,3 +173,17 @@ export function buildRepoNamespace(repoFullName: string) {
       data: { repoSyncId: repoSync.id },
     });
   }
+
+  export async function triggerRepoUnsync(
+    repoFullName: string
+  ) {
+    // Delete the database record immediately so UI updates instantly
+    await prisma.repoSync.deleteMany({
+      where: { repoFullName }
+    });
+    
+    await inngest.send({
+      name: "repo/unsync.requested",
+      data: { repoFullName },
+    });
+  }

@@ -7,6 +7,8 @@ import { syncRepoCodebase } from '../actions/repo-sync';
 import { Button } from '@/components/ui/button';
 import { RepoSyncStatus } from '../types';
 import { toast } from 'sonner';
+import { unsyncRepoCodebase } from '../actions/repo-sync';
+import { Trash2 } from 'lucide-react';
 
 
 
@@ -52,14 +54,49 @@ const SyncRepoButton = ({repoFullName , branch , syncStatus}:SyncRepoButtonProps
         }
     })
 
+    const unsyncRepo = useMutation({
+        mutationFn: () => unsyncRepoCodebase(repoFullName),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: githubRepoKeys.all });
+            toast.success(`Repo ${repoFullName} disconnected`);
+        },
+        onError: (error) => {
+            toast.error(`Failed to disconnect repo: ${error.message}`);
+        }
+    });
+
     const syncing = isSyncing(syncStatus, syncRepo.isPending);
 
+    if (syncStatus === "synced") {
+        return (
+            <div className="flex items-center gap-2 justify-end">
+                <Button
+                    size="sm"
+                    variant="outline"
+                    disabled={syncing || unsyncRepo.isPending}
+                    onClick={() => syncRepo.mutate()}
+                >
+                    {syncing ? "Syncing…" : "Re-sync"}
+                </Button>
+                <Button
+                    size="icon"
+                    variant="destructive"
+                    className="h-8 w-8"
+                    disabled={syncing || unsyncRepo.isPending}
+                    onClick={() => unsyncRepo.mutate()}
+                    title="Disconnect Repo"
+                >
+                    <Trash2 className="size-4" />
+                </Button>
+            </div>
+        );
+    }
 
   return (
      <Button
       size="sm"
       variant="outline"
-      disabled={syncing}
+      disabled={syncing || unsyncRepo.isPending}
       onClick={() => syncRepo.mutate()}
     >
       {getButtonLabel(syncStatus, syncRepo.isPending)}
