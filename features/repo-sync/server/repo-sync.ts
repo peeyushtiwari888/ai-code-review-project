@@ -99,7 +99,7 @@ export function buildRepoNamespace(repoFullName: string) {
     const entries = tree.tree.filter(isIndexableFile).slice(0, MAX_FILES);
     const files: RepoFile[] = [];
   
-    const BATCH_SIZE = 15;
+    const BATCH_SIZE = 40; // Increased batch size for faster fetching
     for (let i = 0; i < entries.length; i += BATCH_SIZE) {
       const batch = entries.slice(i, i + BATCH_SIZE);
       
@@ -127,6 +127,7 @@ export function buildRepoNamespace(repoFullName: string) {
 
   export async function saveRepoChunks(namespace: string, chunks: CodeChunk[]) {
     const index = getPineconeIndex();
+    const promises = [];
   
     for (let start = 0; start < chunks.length; start += UPSERT_BATCH_SIZE) {
       const batch = chunks.slice(start, start + UPSERT_BATCH_SIZE);
@@ -137,8 +138,10 @@ export function buildRepoNamespace(repoFullName: string) {
         filePath: chunk.filePath,
       }));
   
-      await index.namespace(namespace).upsertRecords({ records });
+      promises.push(index.namespace(namespace).upsertRecords({ records }));
     }
+    
+    await Promise.all(promises);
   }
 
 
