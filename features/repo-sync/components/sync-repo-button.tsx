@@ -67,7 +67,7 @@ const SyncRepoButton = ({repoFullName , branch , syncStatus}:SyncRepoButtonProps
 
     const syncing = isSyncing(syncStatus, syncRepo.isPending);
 
-    if (syncStatus === "synced") {
+    if (syncStatus !== null) {
         return (
             <div className="flex items-center gap-2 justify-end">
                 <Button
@@ -76,15 +76,15 @@ const SyncRepoButton = ({repoFullName , branch , syncStatus}:SyncRepoButtonProps
                     disabled={syncing || unsyncRepo.isPending}
                     onClick={() => syncRepo.mutate()}
                 >
-                    {syncing ? "Syncing…" : "Re-sync"}
+                    {getButtonLabel(syncStatus, syncRepo.isPending)}
                 </Button>
                 <Button
                     size="icon"
                     variant="destructive"
                     className="h-8 w-8"
-                    disabled={syncing || unsyncRepo.isPending}
+                    disabled={unsyncRepo.isPending}
                     onClick={() => unsyncRepo.mutate()}
-                    title="Disconnect Repo"
+                    title="Disconnect Repo (Force)"
                 >
                     <Trash2 className="size-4" />
                 </Button>
