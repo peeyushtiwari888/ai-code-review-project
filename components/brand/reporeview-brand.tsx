@@ -36,7 +36,7 @@ export function RepoReviewBrand({
     <div className={cn("flex items-center gap-2", className)}>
       <div className="relative shrink-0 flex items-center justify-center">
         <Image
-          src="/branding/reporeview-logo.png.jpeg"
+          src="/branding/reporeview-logo.png.png"
           alt="RepoReview"
           width={iconSize}
           height={iconSize}
