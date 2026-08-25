@@ -26,7 +26,8 @@ export function getGithubApp(){
 }
 
 export function getGithubInstallUrl(userId: string) {
-    const url = new URL(`https://github.com/apps/chaicode-pr-review-project/installations/new`);
+    const appLink = process.env.NEXT_PUBLIC_GITHUB_APP_LINK?.trim() || "https://github.com/apps/chaicode-pr-review-project";
+    const url = new URL(`${appLink}/installations/new`);
     // `state` round-trips through GitHub so we can link the installation to this user.
     url.searchParams.set("state", userId);
     return url.toString();

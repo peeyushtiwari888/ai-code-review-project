@@ -20,7 +20,7 @@ export async function postPrComment(
       owner,
       repo,
       issue_number: prNumber,
-      body: review,
+      body: `${review}\n\n---\n*✨ Reviewed by **[RepoReview AI](https://github.com/apps/chaicode-pr-review-project)***`,
     },
   );
 }

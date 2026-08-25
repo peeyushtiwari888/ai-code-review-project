@@ -149,12 +149,12 @@ async function DashboardData({ installationId }: { installationId: number }) {
               Monitor your repositories and AI-powered code reviews.
             </p>
           </div>
-          <Link href="/dashboard/github">
+          <a href={`https://github.com/settings/installations/${installationId}`} target="_blank" rel="noopener noreferrer">
             <Button className="bg-foreground text-background hover:bg-foreground/90 shadow-sm">
               <Plus className="mr-2 h-4 w-4" />
               Connect Repository
             </Button>
-          </Link>
+          </a>
         </div>
 
         <React.Suspense fallback={<DashboardSkeleton />}>
