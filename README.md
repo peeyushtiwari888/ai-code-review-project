@@ -24,7 +24,7 @@ RepoReview is an AI-powered GitHub code review platform that uses Retrieval-Augm
 
 ## 📸 Product Preview
 
-![RepoReview Background](./public/branding/coding_background1.png)
+![RepoReview Background](./public/branding/coding_background1.png.png)
 
 
 ---
