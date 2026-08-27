@@ -16,7 +16,7 @@ RepoReview is an AI-powered GitHub code review platform that uses Retrieval-Augm
 ![Pinecone](https://img.shields.io/badge/Pinecone-000000?style=for-the-badge&logo=pinecone&logoColor=white)
 ![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
 
-[🌐 Live Demo](https://reporeview.peeyushtiwari.online/) • [📦 GitHub Repository](https://github.com/peeyushtiwari888/ai-code-review-project)
+[🌐 Live Demo](https://reporeview.peeyushtiwari.online/) • [📦 GitHub Repository](https://github.com/peeyushtiwari888/ai-code-review-project) • [📺 LinkedIn Video Demo](https://lnkd.in/p/d3Srb6zi)
 
 </div>
 
@@ -32,6 +32,8 @@ RepoReview is an AI-powered GitHub code review platform that uses Retrieval-Augm
 ## 🌐 Live Demo
 
 **Live:** [https://reporeview.peeyushtiwari.online/](https://reporeview.peeyushtiwari.online/)
+
+**Video Demo:** [Watch on LinkedIn](https://lnkd.in/p/d3Srb6zi)
 
 Explore the production deployment to experience the landing page, authentication flow, dashboard and product experience.
 
